@@ -1,0 +1,198 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+          //primarySwatch: Colors.blue,
+          ),
+      home: const ClubProfile(),
+    );
+  }
+}
+
+class ClubProfile extends StatefulWidget {
+  const ClubProfile({super.key});
+
+  @override
+  State<ClubProfile> createState() => _ClubProfileState();
+}
+
+class _ClubProfileState extends State<ClubProfile> {
+  final numbers = List.generate(50, (index) => '$index');
+  List<String> images = [
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+    "assets/image.png",
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 5, //changes drop shadow
+        //toolbarHeight: 200, //set at 200
+        title: const Text("Club Profile"),
+        //centerTitle: true,
+
+        backgroundColor: const Color.fromARGB(255, 253, 229, 93),
+      ),
+      body: Center(
+          child: Column(
+        children: <Widget>[
+          const SizedBox(
+            height: 25,
+            width: 100,
+          ),
+          Row(
+            children: const <Widget>[
+              SizedBox(
+                height: 1,
+                width: 20,
+              ),
+              CircleAvatar(
+                backgroundImage: AssetImage("lib/assets/image.png"),
+                radius: 30,
+              ),
+              SizedBox(
+                height: 1,
+                width: 20,
+              ),
+              Text("Club Name",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold)),
+            ],
+          ),
+
+          //SPACING using box
+          const SizedBox(
+            height: 20,
+            width: 2,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 1,
+                width: 20,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 253, 229, 93),
+                  padding: const EdgeInsets.fromLTRB(
+                      107, 15, 107, 15), //button padding left right top bottom
+                ),
+                onPressed: () {},
+                child: const Text('Subscribe',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    )),
+              ),
+              const SizedBox(
+                height: 1,
+                width: 20,
+              ),
+            ],
+          ),
+
+          const SizedBox(
+            height: 50,
+            width: 2,
+          ),
+          myGrid(images),
+        ],
+      )),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.task),
+            label: 'Tasks',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded),
+            label: 'Profile',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/*
+PreferredSizeWidget curvedAppBar() {
+  return AppBar(
+    elevation: 5, //changes drop shadow
+    toolbarHeight: 200, //set at 200
+    //title: const Text("app bar"),
+    centerTitle: true,
+
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        bottomLeft: Radius.elliptical(1000, 700),
+        bottomRight: Radius.elliptical(1000, 700),
+      ),
+    ),
+
+    backgroundColor: const Color.fromARGB(255, 253, 229, 93),
+  );
+}
+*/
+Widget myGrid(items) {
+  return Expanded(
+      child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            return GridTile(child: Image.asset("lib/assets/image.png"));
+          }));
+}
+
+/*
+ Widget buildGridView() => GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+        ),
+        itemCount: numbers.length,
+        itemBuilder: (context, index) {
+          final item = numbers[index];
+          return buildItem(item);
+        },
+      );
+  Widget buildItem(String number) => GridTile(
+        header: Text("Header $number", textAlign: TextAlign.center),
+        child: Text(number),
+      );
+      */
